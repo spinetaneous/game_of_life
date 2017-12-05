@@ -26,7 +26,9 @@ def make_gen(gen1, rows, cols):
     for i in range(rows):
         for j in range(cols):
             alive = 0 # keeps track of how many surrounding cells are alive
+            
             # check top
+            alive += _check_top(gen1, i, j, cols, rows)
             
             # check left
             
@@ -43,8 +45,8 @@ def make_gen(gen1, rows, cols):
             pass
     return gen2
             
-def _check_top(gen, row, col):
-    """ checks the 3 spots on top of cell gen[row][col]/gen[i * cols + j] and returns # of alive cells"""
+def _check_top(gen, i, j, cols, rows):
+    """ checks the 3 spots on top of cell gen[i][j]/gen[i * cols + j] and returns # of alive cells"""
     alive = 0
     if gen[(i-1) * cols  + (j - 1)]: alive += 1 # upper left cell
     if gen[(i-1) * cols  + j]: alive += 1       # cell directly above

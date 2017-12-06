@@ -88,16 +88,22 @@ def _check_top(gen, i, j, cols, rows):
     return alive
         
 def print_gen(gen, rows, cols):
-    """
-    prints a new generation
-    """
+    """ prints a new generation  """
     for i in range(rows):
         for j in range(cols):
             print(gen[i * cols + j]),
         print
     return
         
-print_gen(gen1, 6, 7)
-print
-gen2 = make_gen(gen1, 6, 7)
-print_gen(gen2, 6, 7)
+def print_num_gens(gen1, rows, cols, num_gens):
+    """ prints out a number of generations """
+    prev_gen = gen1
+    print_gen(gen1, rows, cols)
+    print
+    for gen in range(num_gens-1):
+        new_gen = make_gen(prev_gen, rows, cols)
+        print_gen(new_gen, rows, cols)
+        print
+        prev_gen = new_gen
+
+print_num_gens(gen1, 6, 7, 5)

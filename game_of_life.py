@@ -29,6 +29,9 @@ def make_gen(gen1, rows, cols):
     for i in range(rows):
         for j in range(cols):
             alive = 0 # keeps track of how many surrounding cells are alive
+            
+            #lol this part makes me so sad
+            # these are 0 if we can't check, 1 if we can
             top_ok = 0
             left_ok = 0
             right_ok = 0
@@ -39,15 +42,25 @@ def make_gen(gen1, rows, cols):
             if j != 0: left_ok = 1
             if j != (cols - 1): right_ok = 1
             
-            # check top
+            # check top 
             # alive += _check_top(gen1, i, j, cols, rows)
+            if top_ok:
+                if gen[(i-1) * cols  + j]: alive += 1 # cell directly above
             
             # check left
+            if left_ok:
+                if gen[i * cols + (j - 1)]: alive += 1 # cell directly to left
             
             # check right
-            
+            if right_ok:
+                if gen[i * cols + (j + 1)]: alive += 1 # cell directly to right
+                
             # check bottom
-            
+            if top_ok:
+                if gen[(i + 1) * cols  + j]: alive += 1 # cell directly below
+                
+                
+                
             # determine if cell should be alive or dead
             if gen1[i * cols + j]: # cell is alive   
                 pass

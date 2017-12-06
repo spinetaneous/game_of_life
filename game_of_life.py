@@ -42,31 +42,40 @@ def make_gen(gen1, rows, cols):
             if j != 0: left_ok = 1
             if j != (cols - 1): right_ok = 1
             
-            # check top 
             # alive += _check_top(gen1, i, j, cols, rows)
             if top_ok:
-                if gen[(i-1) * cols  + j]: alive += 1 # cell directly above
+                if gen1[(i-1) * cols  + j]: alive += 1 # cell directly above
             
-            # check left
             if left_ok:
-                if gen[i * cols + (j - 1)]: alive += 1 # cell directly to left
+                if gen1[i * cols + (j - 1)]: alive += 1 # cell directly to left
             
-            # check right
             if right_ok:
-                if gen[i * cols + (j + 1)]: alive += 1 # cell directly to right
+                if gen1[i * cols + (j + 1)]: alive += 1 # cell directly to right
                 
-            # check bottom
-            if top_ok:
-                if gen[(i + 1) * cols  + j]: alive += 1 # cell directly below
+            if bottom_ok:
+                if gen1[(i + 1) * cols  + j]: alive += 1 # cell directly below
                 
-                
+            if top_ok and left_ok:
+                if gen1[(i - 1) * cols + (j - 1)]: alive += 1 # upper left cell
+            
+            if top_ok and right_ok:
+                if gen1[(i - 1) * cols + (j + 1)]: alive += 1 # upper right cell
+
+            if bottom_ok and left_ok:
+                if gen1[(i + 1) * cols + (j - 1)]: alive += 1 # lower left cell
+
+            if bottom_ok and right_ok:
+                if gen1[(i + 1) * cols + (j + 1)]: alive += 1 # lower right cell
                 
             # determine if cell should be alive or dead
             if gen1[i * cols + j]: # cell is alive   
-                pass
+                if alive == 2 or alive == 3:
+                    gen2[i * cols + j] = 1 # stasis
+                else: # this isn't necessary here but it will be for cusp
+                    gen2[i * cols + j] = 0 # under/overpopulation
             else: # cell is dead
-                if alive == 3: # with 3 neighbors... 
-                    gen2[i * cols + j] = 1 # ...cell comes to life
+                if alive == 3:
+                    gen2[i * cols + j] = 1 # repopulation
             pass
     return gen2
             
@@ -90,4 +99,5 @@ def print_gen(gen, rows, cols):
         
 print_gen(gen1, 6, 7)
 print
-print_gen(make_gen(gen1, 6, 7), 6, 7)
+gen2 = make_gen(gen1, 6, 7)
+print_gen(gen2, 6, 7)

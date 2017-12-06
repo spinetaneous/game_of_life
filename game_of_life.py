@@ -79,13 +79,6 @@ def make_gen(gen1, rows, cols):
             pass
     return gen2
             
-def _check_top(gen, i, j, cols, rows):
-    """ checks the 3 spots on top of cell gen[i][j]/gen[i * cols + j] and returns # of alive cells"""
-    alive = 0
-    if gen[(i-1) * cols  + (j - 1)]: alive += 1 # upper left cell
-    if gen[(i-1) * cols  + j]: alive += 1       # cell directly above
-    if gen[(i-1) * cols  + (j + 1)]: alive += 1 # upper right cell
-    return alive
         
 def print_gen(gen, rows, cols):
     """ prints a new generation  """

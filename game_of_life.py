@@ -43,8 +43,14 @@ def make_gen(gen1, rows, cols):
             if j != (cols - 1): right_ok = 1
             
             # alive += _check_top(gen1, i, j, cols, rows)
+            if top_ok and left_ok:
+                if gen1[(i - 1) * cols + (j - 1)]: alive += 1 # upper left cell
+                
             if top_ok:
-                if gen1[(i-1) * cols  + j]: alive += 1 # cell directly above
+                if gen1[(i - 1) * cols  + j]: alive += 1 # cell directly above
+                
+            if top_ok and right_ok:
+                if gen1[(i - 1) * cols + (j + 1)]: alive += 1 # upper right cell
             
             if left_ok:
                 if gen1[i * cols + (j - 1)]: alive += 1 # cell directly to left
@@ -52,17 +58,11 @@ def make_gen(gen1, rows, cols):
             if right_ok:
                 if gen1[i * cols + (j + 1)]: alive += 1 # cell directly to right
                 
-            if bottom_ok:
-                if gen1[(i + 1) * cols  + j]: alive += 1 # cell directly below
-                
-            if top_ok and left_ok:
-                if gen1[(i - 1) * cols + (j - 1)]: alive += 1 # upper left cell
-            
-            if top_ok and right_ok:
-                if gen1[(i - 1) * cols + (j + 1)]: alive += 1 # upper right cell
-
             if bottom_ok and left_ok:
                 if gen1[(i + 1) * cols + (j - 1)]: alive += 1 # lower left cell
+                
+            if bottom_ok:
+                if gen1[(i + 1) * cols  + j]: alive += 1 # cell directly below
 
             if bottom_ok and right_ok:
                 if gen1[(i + 1) * cols + (j + 1)]: alive += 1 # lower right cell

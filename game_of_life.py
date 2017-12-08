@@ -90,13 +90,19 @@ def print_gen(gen, rows, cols):
         
 def print_num_gens(gen1, rows, cols, num_gens):
     """ prints out a number of generations """
+    curr_gen = 0
     prev_gen = gen1
+    print("Generation: {}".format(curr_gen))
+    curr_gen += 1
     print_gen(gen1, rows, cols)
     print
     for gen in range(num_gens-1):
         new_gen = make_gen(prev_gen, rows, cols)
+        
+        print("Generation: {}".format(curr_gen))
         print_gen(new_gen, rows, cols)
         print
         prev_gen = new_gen
+        curr_gen += 1
 
-print_num_gens(gen1, 6, 7, 5)
+print_num_gens(gen1, 6, 7, 10)
